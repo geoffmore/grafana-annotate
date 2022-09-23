@@ -1,4 +1,4 @@
-module grafana-annotate
+module github.com/geoffmore/grafana-annotate
 
 go 1.18
 

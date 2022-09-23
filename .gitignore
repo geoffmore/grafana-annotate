@@ -17,3 +17,10 @@
 
 # Local testing env files
 *.env
+
+*.tfvars
+
+*.zip
+
+*.tfstate*
+.terraform
