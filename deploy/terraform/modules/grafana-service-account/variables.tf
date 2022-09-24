@@ -6,6 +6,6 @@ variable "basic_role" {}
 
 // Whether or not to provision and output a token for the created service account. Output will be sensitive
 variable "token" {
-  type = bool
+  type    = bool
   default = false
 }

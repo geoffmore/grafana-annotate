@@ -13,8 +13,8 @@ resource "grafana_service_account" "this" {
 }
 
 resource "grafana_service_account_token" "this" {
-  count = var.token ? 1 : 0
-  name = var.name
+  count              = var.token ? 1 : 0
+  name               = var.name
   service_account_id = grafana_service_account.this.id
 }
 

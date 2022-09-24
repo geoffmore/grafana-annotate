@@ -19,11 +19,11 @@ resource "aws_iam_role" "this" {
 }
 
 resource "aws_iam_policy" "this" {
-  name = aws_iam_user.this.name
+  name        = aws_iam_user.this.name
   description = "IAM policy for user '${aws_iam_user.this.name}'"
   // Assume policy handling has been done in the calling module.
   policy = var.iam_policy
-  tags = var.tags
+  tags   = var.tags
 }
 
 resource "aws_iam_role_policy_attachment" "this" {
