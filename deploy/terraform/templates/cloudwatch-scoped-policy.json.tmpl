@@ -1,0 +1,43 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowReadingMetricsFromCloudWatch",
+      "Effect": "Allow",
+      "Action": [
+        "cloudwatch:DescribeAlarmsForMetric",
+        "cloudwatch:DescribeAlarmHistory",
+        "cloudwatch:DescribeAlarms",
+        "cloudwatch:ListMetrics",
+        "cloudwatch:GetMetricData",
+        "cloudwatch:GetInsightRuleReport"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "DescribeLogGroupsForGrafana",
+      "Effect": "Allow",
+      "Action": [
+        "logs:DescribeLogGroups"
+      ],
+      "Resource": [
+        "arn:aws:logs:${region}:${account}:log-group:*"
+      ]
+    },
+    {
+      "Sid": "AllowReadingLogsFromCloudWatch",
+      "Effect": "Allow",
+      "Action": [
+        "logs:GetLogGroupFields",
+        "logs:StartQuery",
+        "logs:StopQuery",
+        "logs:GetQueryResults",
+        "logs:GetLogEvents"
+      ],
+      "Resource": [
+        "arn:aws:logs:${region}:${account}:log-group:${logGroup}",
+        "arn:aws:logs:${region}:${account}:log-group:${logGroup}:log-stream:*"
+      ]
+    }
+  ]
+}

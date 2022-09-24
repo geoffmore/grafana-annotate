@@ -12,6 +12,7 @@ RUN mkdir /user && \
 
 WORKDIR /src
 
+# See https://www.docker.com/blog/containerize-your-go-developer-environment-part-2/
 # TODO - Figure out how to avoid rebuilding at this step
 COPY ./ ./
 

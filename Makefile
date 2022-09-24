@@ -1,8 +1,11 @@
 COMMIT = $(shell git rev-parse --short HEAD)
 CONTAINER_ID = $(shell docker run -d local/grafana-annotate:latest)
-TF_DIR = "deploy/terraform/"
+TF_DIR = deploy/terraform/
 TF_PLAN_FILE = "plan.out"
-TF_CMD = terraform -chdir=$(TF_DIR)
+# TODO - add -input=false
+TF_GLOBAL_OPTS = -chdir=$(TF_DIR)
+TF_OPTS = -input=false
+TF_CMD = terraform $(TF_GLOBAL_OPTS)
 ARCHIVE_FILE = "grafana-annotate.zip"
 
 .PHONY: build tf-*
@@ -35,16 +38,19 @@ build-zip: build
 	rm grafana-annotate
 	docker rm $(CONTAINER_ID)
 
+# See https://learn.hashicorp.com/tutorials/terraform/automate-terraform
 # TODO - make this run faster by checking for init output before running Terraform init
 tf-init:
-	$(TF_CMD) init
+	$(TF_CMD) init $(TF_OPTS)
+	#$(TF_CMD) init
 
 # TODO - check for plan file before running terraform plan
 # build-zip is needed because the zip file needs to be checked for a changed checksum
 tf-plan: tf-init build-zip
-	$(TF_CMD) plan -out $(TF_PLAN_FILE)
+	$(TF_CMD) plan $(TF_OPTS) -out $(TF_PLAN_FILE)
 
 tf-apply: tf-plan
+	# No $(TF_OPTS) to require a manual approval
 	$(TF_CMD) apply $(TF_PLAN_FILE)
 
 # TODO - implement
